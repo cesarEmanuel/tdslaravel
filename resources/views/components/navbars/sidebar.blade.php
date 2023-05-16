@@ -11,9 +11,6 @@
     <hr class="horizontal light mt-0 mb-2">
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
         <ul class="navbar-nav">
-            <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Laravel examples</h6>
-            </li>
             <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'user-profile' ? 'active bg-gradient-primary' : '' }} "
                     href="{{ route('user-profile') }}">
@@ -28,7 +25,7 @@
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0 ">
         <div class="mx-3">
-            <a class="btn bg-gradient-primary w-100" href="/" target="_blank">Archivos publicos</a>
+            <a class="btn bg-gradient-primary w-100" href="{{route('allfiles')}}" >Archivos publicos</a>
         </div>
     </div>
 </aside>

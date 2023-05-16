@@ -25,6 +25,9 @@ class ProfileController extends Controller
 
         auth()->user()->update($attributes);
         return back()->withStatus('Profile successfully updated.');
-    
-}
+        
+    }
+    public function show(){
+        return view('pages.user-profile');
+    }
 }

@@ -23,9 +23,9 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
             
 
-Route::get('/', [DashboardController::class, 'welcome'])->middleware('guest');
+Route::get('/', [DashboardController::class, 'welcome']);
+Route::get('/allfiles', [DashboardController::class, 'welcome'])->name('allfiles');
 Route::get('/home', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 Route::get('sign-up', [RegisterController::class, 'create'])->middleware('guest')->name('register');
 Route::post('sign-up', [RegisterController::class, 'store'])->middleware('guest');
 Route::get('sign-in', [SessionsController::class, 'create'])->middleware('guest')->name('login');
@@ -42,6 +42,7 @@ Route::get('/reset-password/{token}', function ($token) {
 Route::post('sign-out', [SessionsController::class, 'destroy'])->middleware('auth')->name('logout');
 Route::get('profile', [ProfileController::class, 'create'])->middleware('auth')->name('profile');
 Route::post('user-profile', [ProfileController::class, 'update'])->middleware('auth');
+Route::get('user-profile', [ProfileController::class, 'show'])->middleware('auth')->name('user-profile');
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('billing', function () {
 		return view('pages.billing');
@@ -67,7 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('user-management', function () {
 		return view('pages.laravel-examples.user-management');
 	})->name('user-management');
-	Route::get('user-profile', function () {
-		return view('pages.laravel-examples.user-profile');
-	})->name('user-profile');
+	// Route::get('user-profile', function () {
+	// 	return view('pages.laravel-examples.user-profile');
+	// })->name('user-profile');
 });
