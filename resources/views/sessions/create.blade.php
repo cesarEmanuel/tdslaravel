@@ -51,15 +51,15 @@
                                             <button type="submit" class="btn bg-gradient-info w-100 my-4 mb-2">Ingresar</button>
                                         </div>
                                         <p class="mt-4 text-sm text-center">
-                                            Don't have an account?
+                                            No tienes cuenta?
                                             <a href="{{ route('register') }}"
                                                 class="text-info text-gradient font-weight-bold">Registrarse</a>
                                         </p>
-                                        <p class="text-sm text-center">
+                                        {{-- <p class="text-sm text-center">
                                             Olvidaste la contrasena
                                             <a href="{{ route('verify') }}"
                                                 class="text-info text-gradient font-weight-bold">Click</a>
-                                        </p>
+                                        </p> --}}
                                     </form>
                                 </div>
                             </div>
