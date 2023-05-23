@@ -1,8 +1,8 @@
 <x-layout bodyClass="g-sidenav-show  bg-gray-200">
-    <x-navbars.sidebar activePage="profile"></x-navbars.sidebar>
+    <x-navbars.sidebar activePage="dashboard"></x-navbars.sidebar>
     <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
         <!-- Navbar -->
-        <x-navbars.navs.auth titlePage='Profile'></x-navbars.navs.auth>
+        <x-navbars.navs.auth titlePage='dashboard'></x-navbars.navs.auth>
         <!-- End Navbar -->
         <div class="container-fluid px-2 px-md-4">
             <div class="page-header min-height-300 border-radius-xl mt-4"
@@ -13,28 +13,53 @@
                 <div class="row gx-4 mb-2">
                     <div class="col-auto">
                         <div class="avatar avatar-xl position-relative">
-                            <img src="{{ asset('assets') }}/img/bruce-mars.jpg" alt="profile_image"
+                            <img src="{{ asset('assets') }}/img/profile.png" alt="profile_image"
                                 class="w-100 border-radius-lg shadow-sm">
                         </div>
                     </div>
                     <div class="col-auto my-auto">
                         <div class="h-100">
                             <h5 class="mb-1">
-                                Richard Davis
+                                {{ auth()->user()->name }}
                             </h5>
-                            <p class="mb-0 font-weight-normal text-sm">
-                                CEO / Co-Founder
-                            </p>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
-                        <form action="/file-upload" class="form-control border dropzone" id="dropzone">
-                            <div class="fallback">
-                              <input name="file" type="file" multiple />
+                    <div class="col-lg-5 col-md-5 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+                        {{-- <form action="/upload" class="dropzone" id="dropzone">
+                        </form> --}}
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="/create" method="post" enctype="multipart/form-data"> 
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-12">
+                                          <div class="input-group input-group-outline my-3">
+                                            <label class="form-label">Nombre de archivo</label>
+                                            <input type="text" class="form-control" name="displayfile">
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="input-group input-group-outline my-3">
+                                                <input type="file" name="file">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="">
+                                                <label class="form-check-label" name="statusfile"for="flexSwitchCheckDefault">Publico</label>
+                                            </div>
+                                        </div>
+                                          <button type="submit" class="btn bg-gradient-primary">Subir archivo</button>
+                                    </div>
+
+
+
+                                    {{-- <input type="file" name="file">
+                                    <input type="checkbox" name="statusfile" value="publicado">
+                                    <input type="submit" value="Subir archivo"> --}}
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                    
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -43,6 +68,7 @@
                                 <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                                     <h6 class="text-white text-capitalize ps-3">Archivos subidos</h6>
                                 </div>
+                                
                             </div>
                             <div class="card-body px-0 pb-2">
                                 <div class="table-responsive p-0">
@@ -70,73 +96,55 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach($archivos AS $values)
+
                                             <tr>
                                                 <td>
                                                     <div class="d-flex px-2 py-1">
                                                         <div>
-                                                            <a href="https://file-examples.com/storage/fea9880a616463cab9f1575/2017/10/file-example_PDF_500_kB.pdf">Archivo1</a>
+                                                            <span class="material-icons">
+                                                                {{$values["icon"]}}
+                                                            </span>
+                                                            <a href="{{ asset('files/'.$values["namefile"]) }}"
+                                                                target="_blank"
+                                                                class="nameFile">{{$values["displayfile"]}}</a>
                                                         </div>
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm"></h6>
-                                                        </div>
+                                                        
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <p class="text-xs font-weight-bold mb-0">26 Abril 2023</p>
+                                                    <p class="text-xs font-weight-bold mb-0">{{$values["created_at"]}}</p>
                                                 </td>
                                                 <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-success">Publicado</span>
+                                                    <span class="badge badge-sm bg-gradient-success">{{$values["statusfile"]}}</span>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">120MB</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{$values["sizefile"]}}MB</span>
                                                 </td>
                                                 <td class="align-middle text-center">
                                                     <span
-                                                        class="text-secondary text-xs font-weight-bold">250</span>
+                                                        class="text-secondary text-xs font-weight-bold">{{$values["contador"]}}</span>
                                                 </td>
                                                 <td class="align-middle">
                                                     <a href="javascript:;"
+                                                    class="edit-button"
                                                         class="text-secondary font-weight-bold text-xs"
-                                                        data-toggle="tooltip" data-original-title="Borrar archivo">
-                                                        Borrar
+                                                        data-toggle="tooltip" data-original-title="Editar nombre">
+                                                        <span class="material-icons">
+                                                            edit
+                                                        </span>
                                                     </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex px-2 py-1">
-                                                        <div>
-                                                            <a href="https://file-examples.com/storage/fea9880a616463cab9f1575/2017/10/file-example_PDF_500_kB.pdf">Archivo1</a>
-                                                        </div>
-                                                        <div class="d-flex flex-column justify-content-center">
-                                                            <h6 class="mb-0 text-sm"></h6>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-weight-bold mb-0">26 Abril 2023</p>
-                                                </td>
-                                                <td class="align-middle text-center text-sm">
-                                                    <span class="badge badge-sm bg-gradient-secondary">Publicado</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">120MB</span>
-                                                </td>
-                                                <td class="align-middle text-center">
-                                                    <span
-                                                        class="text-secondary text-xs font-weight-bold">250</span>
-                                                </td>
-                                                <td class="align-middle">
                                                     <a href="javascript:;"
                                                         class="text-secondary font-weight-bold text-xs"
                                                         data-toggle="tooltip" data-original-title="Borrar archivo">
-                                                        Borrar
+                                                        <span class="material-icons">
+                                                            delete_forever
+                                                        </span>
                                                     </a>
                                                 </td>
                                             </tr>
-                                          
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -150,5 +158,68 @@
         <x-footers.auth></x-footers.auth>
     </div>
     <x-plugins></x-plugins>
+    @push('js')
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            Dropzone.autoDiscover = false;
+            var myDropzone = new Dropzone("#dropzone", {
+                            url: "/upload",
+                            paramName: "file",
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            init: function() {
+                                var myDropzone = this;
+                                myDropzone.on("addedfile", function(file) {
+                                    var displayName = document.getElementById("display-name-input").value;
+                                    file.displayname = displayName;
+                                });
+                                myDropzone.on("sending", function(file, xhr, formData) {
+                                    formData.append("displayname", file.displayname);
+                                });
+                            }
+                        });
+        const updateDisplayName = (fileId, displayName) => {
+            return new Promise((resolve, reject) => {
+                axios.post('/update-display-name', {
+                    file_id: fileId,
+                    display_name: displayName
+                })
+                .then(response => {
+                    if (response.data.success) {
+                        resolve();
+                    } else {
+                        reject();
+                    }
+                })
+                .catch(error => {
+                    reject(error);
+                });
+            });
+        };
+            const editButton = Array.from(document.getElementsByClassName('edit-button'));
+            const updateButton = document.getElementById('update-button');
+            const displayNameInput = document.getElementById('display-name-input');
+            const fileId = 123;
+            console.log(editButton);
+            editButton.forEach(element => {
+                element.addEventListener('click',()=>{
+                    this.parentNode.querySelector('.nameFile');
+                })
+            });
+            updateButton.addEventListener('click', () => {
+                const displayName = displayNameInput.value;
+
+                updateDisplayName(fileId, displayName)
+                    .then(() => {
+                        console.log('Display name updated successfully');
+                    })
+                    .catch(error => {
+                        console.error('Error updating display name:', error);
+                    });
+            });
+    
+        </script>
+    @endpush
 
 </x-layout>

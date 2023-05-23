@@ -14,7 +14,7 @@
                 <div class="row gx-4 mb-2">
                     <div class="col-auto">
                         <div class="avatar avatar-xl position-relative">
-                            <img src="{{ asset('assets') }}/img/bruce-mars.jpg" alt="profile_image"
+                            <img src="{{ asset('assets') }}/img/profile.png" alt="profile_image"
                                 class="w-100 border-radius-lg shadow-sm">
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                     <div class="card-header pb-0 p-3">
                         <div class="row">
                             <div class="col-md-8 d-flex align-items-center">
-                                <h6 class="mb-3">Profile Information</h6>
+                                <h6 class="mb-3">Informacion de perfil</h6>
                             </div>
                         </div>
                     </div>
@@ -62,22 +62,23 @@
                             @csrf
                             <div class="row">
                                 
-                                <div class="mb-3 col-md-6">
-                                    <label class="form-label">Correo</label>
-                                    <input type="email" name="email" class="form-control border border-2 p-2" value='{{ old('email', auth()->user()->email) }}'>
-                                    @error('email')
-                                <p class='text-danger inputerror'>{{ $message }} </p>
-                                @enderror
-                                </div>
                                 
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Nombre</label>
                                     <input type="text" name="name" class="form-control border border-2 p-2" value='{{ old('name', auth()->user()->name) }}'>
                                     @error('name')
-                                <p class='text-danger inputerror'>{{ $message }} </p>
-                                @enderror
+                                    <p class='text-danger inputerror'>{{ $message }} </p>
+                                    @enderror
                                 </div>
-                               
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label">Correo</label>
+                                    <input type="email" name="email" class="form-control border border-2 p-2" value='{{ old('email', auth()->user()->email) }}'
+                                    readonly >
+                                    @error('email')
+                                    <p class='text-danger inputerror'>{{ $message }} </p>
+                                    @enderror
+                                </div>
+                                
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label">Telefono</label>
                                     <input type="number" name="phone" class="form-control border border-2 p-2" value='{{ old('phone', auth()->user()->phone) }}'>
@@ -98,7 +99,7 @@
                                         @enderror
                                 </div>
                             </div>
-                            <button type="button" class="btn bg-gradient-dark">Guardar</button>
+                            <button type="submit" class="btn bg-gradient-dark">Guardar</button>
                         </form>
 
                     </div>

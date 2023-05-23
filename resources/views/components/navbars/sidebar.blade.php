@@ -20,7 +20,16 @@
                     <span class="nav-link-text ms-1">Editar Perfil</span>
                 </a>
             </li>
-           
+            
+            <li class="nav-item">
+                <a class="nav-link text-white {{ $activePage == 'dashboard' ? 'active bg-gradient-primary' : '' }} "
+                    href="{{ route('dashboard') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i style="font-size: 1.2rem;" class="fas fa-file ps-2 pe-2 text-center"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Mis archivos</span>
+                </a>
+            </li>
         </ul>
     </div>
     <div class="sidenav-footer position-absolute w-100 bottom-0 ">
