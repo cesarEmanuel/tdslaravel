@@ -4,7 +4,7 @@
     class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark"
     id="sidenav-main">
     <div class="sidenav-header">
-        <a class="navbar-brand m-0 d-flex text-wrap align-items-center" href=" {{ route('dashboard') }} ">
+        <a class="navbar-brand m-0 d-flex text-wrap align-items-center" href=" {{ route('dashboard.index') }} ">
             <span class="ms-2 font-weight-bold text-white">FREEFILES</span>
         </a>
     </div>
@@ -23,7 +23,7 @@
             
             <li class="nav-item">
                 <a class="nav-link text-white {{ $activePage == 'dashboard' ? 'active bg-gradient-primary' : '' }} "
-                    href="{{ route('dashboard') }}">
+                    href="{{ route('dashboard.index') }}">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i style="font-size: 1.2rem;" class="fas fa-file ps-2 pe-2 text-center"></i>
                     </div>

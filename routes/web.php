@@ -26,7 +26,8 @@ use App\Http\Controllers\UploadController;
 
 Route::get('/', [DashboardController::class, 'welcome']);
 Route::get('/allfiles', [DashboardController::class, 'welcome'])->name('allfiles');
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
+Route::resource('/dashboard', DashboardController::class)->middleware('auth');
+// Route::get('/dashboard/create', [DashboardController::class, 'create'])->middleware('auth')->name('dashboard.create');
 Route::post('/update-display-name', [DashboardController::class, 'updateDisplayName'])->name('updateDisplayName');
 Route::get('sign-up', [RegisterController::class, 'create'])->middleware('guest')->name('register');
 Route::post('sign-up', [RegisterController::class, 'store'])->middleware('guest');
@@ -45,4 +46,3 @@ Route::post('sign-out', [SessionsController::class, 'destroy'])->middleware('aut
 Route::get('profile', [ProfileController::class, 'create'])->middleware('auth')->name('profile');
 Route::post('user-profile', [ProfileController::class, 'update'])->middleware('auth');
 Route::get('user-profile', [ProfileController::class, 'show'])->middleware('auth')->name('user-profile');
-Route::post('/dashboard', [UploadController::class, 'create'])->middleware('auth');

@@ -26,35 +26,41 @@
                       </tr>
                     </thead>
                     <tbody>
+                      @foreach($archivos AS $values)
+
                         <tr>
                             <td>
-                              <div class="d-flex px-2 ">
-                                <div>
-                                  <i class="material-icons">picture_as_pdf </i>
+                                <div class="d-flex px-2 py-1">
+                                    <div>
+                                        
+                                        <span class="text-secondary text-xs font-weight-bold">
+                                          {{$values["displayfile"]}}</span>
+                                    </div>
+                                    
                                 </div>
-                                <div class="my-auto">
-                                  <h6 class="mb-0 text-xs">Acta de independencia</h6>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <p class="text-xs font-weight-normal mb-0">Palacio de Guatemala </p>
-                            </td>
-                            <td>
-                              <span class="badge badge-dot me-4">
-                                <i class="bg-info"></i>
-                                <span class="text-dark text-xs">12 oct 2002</span>
-                              </span>
                             </td>
                             <td class="align-middle text-center">
-                              <div class="d-flex align-items-center">
-                                <span class="me-2 text-xs">Descargar <i class="material-icons">cloud_download</i></span>
-                              </div>
+                                <span class="text-secondary text-xs font-weight-bold">{{$values["autor"]}}</span>
                             </td>
-                  
-                           
-                          </tr>
-              
+                            <td>
+                                <p class="text-xs font-weight-bold mb-0">{{$values["created_at"]}}</p>
+                            </td>
+                            <td class="align-middle text-center">
+                              <span class="material-icons">
+                                {{$values["icon"]}}
+                            </span>
+                            
+                                <span class="text-secondary text-xs font-weight-bold">
+
+                                  <a href="{{ asset('files/'.$values["namefile"]) }}"
+                                            target="_blank"
+                                            class="nameFile"><span class="material-icons">
+                                              download
+                                          </span></a>
+                                  </span>
+                            </td>
+                        </tr>
+                        @endforeach
                     </tbody>
                   </table>
                 </div>
